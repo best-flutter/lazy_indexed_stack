@@ -14,18 +14,16 @@ class LazyIndexedStack extends StatefulWidget {
   final int itemCount;
   final IndexedWidgetBuilder itemBuilder;
 
-  LazyIndexedStack({
-    Key key,
-    this.alignment = AlignmentDirectional.topStart,
-    this.textDirection,
-    this.sizing = StackFit.loose,
-    this.index,
-    this.reuse=true,
-    @required
-    this.itemBuilder,
-
-    this.itemCount = 0
-  }) : super(key: key);
+  LazyIndexedStack(
+      {Key key,
+      this.alignment = AlignmentDirectional.topStart,
+      this.textDirection,
+      this.sizing = StackFit.loose,
+      this.index,
+      this.reuse = true,
+      @required this.itemBuilder,
+      this.itemCount = 0})
+      : super(key: key);
 
   @override
   _LazyIndexedStackState createState() => _LazyIndexedStackState();
@@ -39,11 +37,11 @@ class _LazyIndexedStackState extends State<LazyIndexedStack> {
   void initState() {
     _loaded = [];
     _children = [];
-    for(int i=0;i<widget.itemCount; ++i){
-      if(i==widget.index){
-        _children.add(widget.itemBuilder(context,i));
+    for (int i = 0; i < widget.itemCount; ++i) {
+      if (i == widget.index) {
+        _children.add(widget.itemBuilder(context, i));
         _loaded.add(true);
-      }else{
+      } else {
         _children.add(new Container());
         _loaded.add(false);
       }
@@ -53,17 +51,16 @@ class _LazyIndexedStackState extends State<LazyIndexedStack> {
 
   @override
   void didUpdateWidget(LazyIndexedStack oldWidget) {
-
-    for(int i=0;i<widget.itemCount; ++i){
-      if(i==widget.index) {
-        if(!_loaded[i]){
-          _children[i] = widget.itemBuilder(context,i);
+    for (int i = 0; i < widget.itemCount; ++i) {
+      if (i == widget.index) {
+        if (!_loaded[i]) {
+          _children[i] = widget.itemBuilder(context, i);
           _loaded[i] = true;
-        }else {
-          if(widget.reuse){
+        } else {
+          if (widget.reuse) {
             return;
           }
-          _children[i] = widget.itemBuilder(context,i);
+          _children[i] = widget.itemBuilder(context, i);
         }
       }
     }
@@ -71,11 +68,8 @@ class _LazyIndexedStackState extends State<LazyIndexedStack> {
     super.didUpdateWidget(oldWidget);
   }
 
-
-
   @override
   Widget build(BuildContext context) {
-
     return new IndexedStack(
       index: widget.index,
       alignment: widget.alignment,

@@ -42,12 +42,11 @@ class LoadingPage extends StatefulWidget {
 }
 
 class _LoadingPageState extends State<LoadingPage> {
-
   bool loading = true;
 
   @override
   void initState() {
-    Future.delayed(new Duration(seconds: 2)).then((e){
+    Future.delayed(new Duration(seconds: 2)).then((e) {
       setState(() {
         loading = false;
       });
@@ -57,46 +56,61 @@ class _LoadingPageState extends State<LoadingPage> {
 
   @override
   Widget build(BuildContext context) {
-    return loading?new Container(child: new Text("loading...."),):
-    Container(child: new Text("load success"),);
+    return loading
+        ? new Container(
+            child: new Text("loading...."),
+          )
+        : Container(
+            child: new Text("load success"),
+          );
   }
 }
-
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   int index = 0;
 
-
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body:new LazyIndexedStack(
+      body: new LazyIndexedStack(
         reuse: false,
         index: index,
-        itemBuilder: (c,i){
+        itemBuilder: (c, i) {
           return LoadingPage();
         },
         itemCount: 4,
-
       ),
       bottomNavigationBar: new BottomNavigationBar(
         items: [
-        new BottomNavigationBarItem(icon: new Icon(Icons.add,color: Colors.black38,),title: new Text("add")),
-        new BottomNavigationBarItem(icon: new Icon(Icons.add,color: Colors.black38),title: new Text("add")),
-        new BottomNavigationBarItem(icon: new Icon(Icons.add,color: Colors.black38),title: new Text("add")),
-        new BottomNavigationBarItem(icon: new Icon(Icons.add,color: Colors.black38),title: new Text("add")),
-      ],currentIndex: index,onTap: (i){
-        setState(() {
-          index = i;
-        });
-      },),
+          new BottomNavigationBarItem(
+              icon: new Icon(
+                Icons.add,
+                color: Colors.black38,
+              ),
+              title: new Text("add")),
+          new BottomNavigationBarItem(
+              icon: new Icon(Icons.add, color: Colors.black38),
+              title: new Text("add")),
+          new BottomNavigationBarItem(
+              icon: new Icon(Icons.add, color: Colors.black38),
+              title: new Text("add")),
+          new BottomNavigationBarItem(
+              icon: new Icon(Icons.add, color: Colors.black38),
+              title: new Text("add")),
+        ],
+        currentIndex: index,
+        onTap: (i) {
+          setState(() {
+            index = i;
+          });
+        },
+      ),
     );
   }
 }
